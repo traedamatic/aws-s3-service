@@ -231,6 +231,11 @@ AwsS3Service.prototype.listObjects = function () {
 
 };
 
+/**
+ * AwsS3Service instance
+ * @type {null}
+ */
+var instance = null;
 
 /**
  *
@@ -238,8 +243,16 @@ AwsS3Service.prototype.listObjects = function () {
  * @returns {AwsS3Service}
  */
 module.exports = function (options) {
+
+    if (instance) {
+        return instance
+    }
+
     if (!options) {
         throw  new Error('Please provide options for the aws s3 service')
     }
-    return new AwsS3Service(options);
+
+    instance = new AwsS3Service(options);
+
+    return instance;
 };
