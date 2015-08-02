@@ -99,7 +99,7 @@ AwsS3Service.prototype.upload = function (filePath, fileName, customName, withou
     return new Promise(function (resolve, reject) {
 
         if(!filePath) {
-            return reject(new Error('SpotService - No filePath provided'));
+            return reject(new Error('AwsS3Service - No filePath provided'));
         }
 
         var fileHash = null;
@@ -158,7 +158,7 @@ AwsS3Service.prototype.upload = function (filePath, fileName, customName, withou
                     });
 
                 } else {
-                    return reject(new Error('SpotService - File does not exists'));
+                    return reject(new Error('AwsS3Service - File does not exists'));
                 }
             })
             .then(function (response) {
@@ -185,7 +185,7 @@ AwsS3Service.prototype.removeFile = function (key) {
     return new Promise(function (resolve, reject) {
 
         if(!key) {
-            return reject(new Error('SpotService - No key provided'));
+            return reject(new Error('AwsS3Service - No key provided'));
         }
 
         var params = {
@@ -205,7 +205,7 @@ AwsS3Service.prototype.removeFile = function (key) {
 };
 
 /**
- *
+ * list s3 objects
  * @returns {Promise}
  */
 AwsS3Service.prototype.listObjects = function () {
@@ -218,11 +218,11 @@ AwsS3Service.prototype.listObjects = function () {
             Bucket: self.bucketName
         };
 
-        self.S3.listObjects(params, function (err, spots) {
+        self.S3.listObjects(params, function (err, objects) {
             if (err) {
                 return reject(err);
             } else {
-                return resolve(spots);
+                return resolve(objects);
             }
         });
     })
